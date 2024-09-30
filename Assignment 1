@@ -1,0 +1,178 @@
+# Customer Class
+class Customer:
+    def __init__(self, name, email, phone, credit_card):
+        self.__name = name
+        self.__email = email
+        self.__phone = phone
+        self.__credit_card = credit_card
+
+    # Getter methods
+    def get_name(self):
+        return self.__name
+
+    def get_email(self):
+        return self.__email
+
+    def get_phone(self):
+        return self.__phone
+
+    def get_credit_card(self):
+        return self.__credit_card
+
+    # Setter methods
+    def set_name(self, name):
+        self.__name = name
+
+    def set_email(self, email):
+        if "@" in email:
+            self.__email = email
+        else:
+            raise ValueError("Invalid email format")
+
+    def set_phone(self, phone):
+        self.__phone = phone
+
+    def set_credit_card(self, credit_card):
+        self.__credit_card = credit_card
+
+
+# Reservation Class
+class Reservation:
+    def __init__(self, dates, room_type, confirmation_number, price):
+        self.__dates = dates
+        self.__room_type = room_type
+        self.__confirmation_number = confirmation_number
+        self.__price = price
+
+    # Getter methods
+    def get_dates(self):
+        return self.__dates
+
+    def get_room_type(self):
+        return self.__room_type
+
+    def get_confirmation_number(self):
+        return self.__confirmation_number
+
+    def get_price(self):
+        return self.__price
+
+    # Setter methods
+    def set_dates(self, dates):
+        self.__dates = dates
+
+    def set_room_type(self, room_type):
+        self.__room_type = room_type
+
+    def set_confirmation_number(self, confirmation_number):
+        self.__confirmation_number = confirmation_number
+
+    def set_price(self, price):
+        self.__price = price
+
+
+# Room Class
+class Room:
+    def __init__(self, room_number, room_type, price, availability):
+        self.__room_number = room_number
+        self.__type = room_type
+        self.__price = price
+        self.__availability = availability
+
+    # Getter methods
+    def get_room_number(self):
+        return self.__room_number
+
+    def get_type(self):
+        return self.__type
+
+    def get_price(self):
+        return self.__price
+
+    def is_available(self):
+        return self.__availability
+
+    # Setter methods
+    def set_room_number(self, room_number):
+        self.__room_number = room_number
+
+    def set_type(self, room_type):
+        self.__type = room_type
+
+    def set_price(self, price):
+        self.__price = price
+
+    def set_availability(self, availability):
+        self.__availability = availability
+
+
+# Payment Class
+class Payment:
+    def __init__(self, method, total_amount, status):
+        self.__method = method
+        self.__total_amount = total_amount
+        self.__status = status
+
+    # Getter methods
+    def get_method(self):
+        return self.__method
+
+    def get_total_amount(self):
+        return self.__total_amount
+
+    def get_status(self):
+        return self.__status
+
+    # Setter methods
+    def set_method(self, method):
+        self.__method = method
+
+    def set_total_amount(self, total_amount):
+        self.__total_amount = total_amount
+
+    def set_status(self, status):
+        self.__status = status
+
+    # Process payment
+    def process_payment(self):
+        if self.__total_amount > 0:
+            self.__status = "Paid"
+        else:
+            raise ValueError("Invalid payment amount")
+
+
+# Test Cases
+
+# Good Case
+customer1 = Customer("Ted Vera", "tedvera@mac.com", "123-456-7890", "9904")
+reservation1 = Reservation("Aug 22-24, 2010", "2 Queen Beds", 52523687, 201.48)
+room1 = Room(101, "2 Queen Beds", 89.95, True)
+payment1 = Payment("MasterCard", 201.48, "Pending")
+
+print("Customer Info (Good Case)")
+print(f"Name: {customer1.get_name()}")
+print(f"Email: {customer1.get_email()}")
+print(f"Phone: {customer1.get_phone()}")
+print(f"Credit Card: {customer1.get_credit_card()}")
+
+try:
+    payment1.process_payment()
+    print(f"Payment Status: {payment1.get_status()}")
+except ValueError as e:
+    print(f"Payment Error: {e}")
+
+# Invalid Email Case
+print("\nInvalid Email Case")
+try:
+    customer2 = Customer("John Doe", "invalidemail", "987-654-3210", "1234")
+except ValueError as e:
+    print(f"Error: {e}")
+
+# Invalid Payment Case
+print("\nInvalid Payment Case")
+payment2 = Payment("Visa", 0, "Pending")
+try:
+    payment2.process_payment()
+    print(f"Payment Status: {payment2.get_status()}")
+except ValueError as e:
+    print(f"Error: {e}")
